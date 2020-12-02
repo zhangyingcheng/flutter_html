@@ -12,7 +12,6 @@ import 'package:flutter_html/src/utils.dart';
 import 'package:flutter_html/style.dart';
 import 'package:html/dom.dart' as dom;
 import 'package:html/parser.dart' as htmlparser;
-import 'package:webview_flutter/webview_flutter.dart';
 
 typedef OnTap = void Function(String url);
 typedef CustomRender = Widget Function(
@@ -32,7 +31,8 @@ class HtmlParser extends StatelessWidget {
   final Map<String, Style> style;
   final Map<String, CustomRender> customRender;
   final List<String> blacklistedElements;
-  final NavigationDelegate navigationDelegateForIframe;
+
+  // final NavigationDelegate navigationDelegateForIframe;
 
   HtmlParser({
     @required this.htmlData,
@@ -43,7 +43,7 @@ class HtmlParser extends StatelessWidget {
     this.style,
     this.customRender,
     this.blacklistedElements,
-    this.navigationDelegateForIframe,
+    // this.navigationDelegateForIframe,
   });
 
   @override
@@ -53,7 +53,7 @@ class HtmlParser extends StatelessWidget {
       document,
       customRender?.keys?.toList() ?? [],
       blacklistedElements,
-      navigationDelegateForIframe,
+      // navigationDelegateForIframe,
     );
     StyledElement styledTree = applyCSS(lexedTree);
     StyledElement inlineStyledTree = applyInlineStyles(styledTree);
@@ -95,7 +95,7 @@ class HtmlParser extends StatelessWidget {
     dom.Document html,
     List<String> customRenderTags,
     List<String> blacklistedElements,
-    NavigationDelegate navigationDelegateForIframe,
+    // NavigationDelegate navigationDelegateForIframe,
   ) {
     StyledElement tree = StyledElement(
       name: "[Tree Root]",
@@ -108,7 +108,7 @@ class HtmlParser extends StatelessWidget {
         node,
         customRenderTags,
         blacklistedElements,
-        navigationDelegateForIframe,
+        // navigationDelegateForIframe,
       ));
     });
 
@@ -123,7 +123,7 @@ class HtmlParser extends StatelessWidget {
     dom.Node node,
     List<String> customRenderTags,
     List<String> blacklistedElements,
-    NavigationDelegate navigationDelegateForIframe,
+    // NavigationDelegate navigationDelegateForIframe,
   ) {
     List<StyledElement> children = List<StyledElement>();
 
@@ -132,7 +132,7 @@ class HtmlParser extends StatelessWidget {
         childNode,
         customRenderTags,
         blacklistedElements,
-        navigationDelegateForIframe,
+        // navigationDelegateForIframe,
       ));
     });
 
@@ -146,7 +146,7 @@ class HtmlParser extends StatelessWidget {
       } else if (INTERACTABLE_ELEMENTS.contains(node.localName)) {
         return parseInteractableElement(node, children);
       } else if (REPLACED_ELEMENTS.contains(node.localName)) {
-        return parseReplacedElement(node, navigationDelegateForIframe);
+        return parseReplacedElement(node);
       } else if (LAYOUT_ELEMENTS.contains(node.localName)) {
         return parseLayoutElement(node, children);
       } else if (TABLE_STYLE_ELEMENTS.contains(node.localName)) {

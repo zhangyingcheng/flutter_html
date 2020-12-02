@@ -3,7 +3,6 @@ library flutter_html;
 import 'package:flutter/material.dart';
 import 'package:flutter_html/html_parser.dart';
 import 'package:flutter_html/style.dart';
-import 'package:webview_flutter/webview_flutter.dart';
 
 class Html extends StatelessWidget {
   /// The `Html` widget takes HTML as input and displays a RichText
@@ -41,7 +40,7 @@ class Html extends StatelessWidget {
     this.onImageTap,
     this.blacklistedElements = const [],
     this.style,
-    this.navigationDelegateForIframe,
+    // this.navigationDelegateForIframe,
   }) : super(key: key);
 
   final String data;
@@ -64,7 +63,7 @@ class Html extends StatelessWidget {
   /// Decides how to handle a specific navigation request in the WebView of an
   /// Iframe. It's necessary to use the webview_flutter package inside the app
   /// to use NavigationDelegate.
-  final NavigationDelegate navigationDelegateForIframe;
+  // final NavigationDelegate navigationDelegateForIframe;
 
   @override
   Widget build(BuildContext context) {
@@ -81,7 +80,7 @@ class Html extends StatelessWidget {
         style: style,
         customRender: customRender,
         blacklistedElements: blacklistedElements,
-        navigationDelegateForIframe: navigationDelegateForIframe,
+        // navigationDelegateForIframe: navigationDelegateForIframe,
       ),
     );
   }
